@@ -6,7 +6,7 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
   function removeOneCharacter(index) {
     const id = characters[index].id;
-    const promise = fetch("Http://localhost:8000/"+id, {
+    const promise = fetch("Http://localhost:8000/users/"+id, {
         method: "DELETE"
       });
     promise.then((response) => {

@@ -52,7 +52,13 @@ const removeUser = (id) => {
     return index;
 }
 const genID = () => {
-  return parseInt(1_000_000 * Math.random()).toString();
+  var newID = 0;
+  while(true) {
+    newID = parseInt(1_000_000 * Math.random()).toString()
+    if(users["users_list"].findIndex( (element) => newID === element.id ) == -1)
+      break;
+  }
+  return newID;
 }
 
 
