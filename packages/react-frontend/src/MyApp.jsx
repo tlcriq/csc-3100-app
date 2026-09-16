@@ -12,7 +12,11 @@ function MyApp() {
   }
   function updateList(person) {
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
+      .then((response) => {
+        if(response.status==201) {
+          response.json().then((obj) => setCharacters([...characters, obj]));
+        }
+      })
       .catch((error) => {
         console.log(error);
       });

@@ -4,27 +4,27 @@ import cors from "cors";
 const users = {
   users_list: [
     {
-      id: "xyz789",
+      id: 789789,
       name: "Charlie",
       job: "Janitor",
     },
     {
-      id: "abc123",
+      id: 321123,
       name: "Mac",
       job: "Bouncer",
     },
     {
-      id: "ppp222",
+      id: 555222,
       name: "Mac",
       job: "Professor",
     },
     {
-      id: "yat999",
+      id: 816999,
       name: "Dee",
       job: "Aspring actress",
     },
     {
-      id: "zap555",
+      id: 904555,
       name: "Dennis",
       job: "Bartender",
     },
@@ -50,6 +50,9 @@ const removeUser = (id) => {
     const index = users["users_list"].findIndex( (element) => id === element.id );
     users["users_list"].splice(index, 1);
     return index;
+}
+const genID = () => {
+  return parseInt(1_000_000 * Math.random());
 }
 
 
@@ -102,8 +105,9 @@ app.get("/users/", (req, res) => {
 
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
+    userToAdd.id = genID();
     addUser(userToAdd);
-    res.send();
+    res.status(201).send(userToAdd);
 });
 
 app.delete("/users/:id", (req, res) => {
