@@ -4,27 +4,27 @@ import cors from "cors";
 const users = {
   users_list: [
     {
-      id: 789789,
+      id: "789789",
       name: "Charlie",
       job: "Janitor",
     },
     {
-      id: 321123,
+      id: "321123",
       name: "Mac",
       job: "Bouncer",
     },
     {
-      id: 555222,
+      id: "555222",
       name: "Mac",
       job: "Professor",
     },
     {
-      id: 816999,
+      id: "816999",
       name: "Dee",
       job: "Aspring actress",
     },
     {
-      id: 904555,
+      id: "904555",
       name: "Dennis",
       job: "Bartender",
     },
@@ -52,7 +52,7 @@ const removeUser = (id) => {
     return index;
 }
 const genID = () => {
-  return parseInt(1_000_000 * Math.random());
+  return parseInt(1_000_000 * Math.random()).toString();
 }
 
 
@@ -116,7 +116,7 @@ app.delete("/users/:id", (req, res) => {
   if (result == -1) {
     res.status(404).send("No user matches this id.");
   } else {
-    res.send();
+    res.status(204).send();
   }
 });
 
