@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
-import user from "user.js";
-import services from "user-service.js";
+import user from "./models/user.js";
+import services from "./services/user-service.js";
+
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 /*const genID = () => {
   var newID = 0;
@@ -12,6 +15,16 @@ import services from "user-service.js";
   }
   return newID;
 }*/
+
+dotenv.config();
+
+const { MONGO_CONNECTION_STRING } = process.env;
+
+mongoose.set("debug", true);
+mongoose
+  .connect(MONGO_CONNECTION_STRING + "users") // connect to Db "users"
+  .catch((error) => console.log(error));
+
 
 const app = express();
 const port = 8000;
@@ -88,18 +101,13 @@ app.post("/users", (req, res) => {
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"];
-  let result = services.removeUser((response) => {
+  services.removeUser(id).then((response) => {
     if(response == null) {
       res.status(404).send("No user matches this id.");
     } else {
       res.status(204).send();
     }
   });
-  if (result == -1) {
-    res.status(404).send("No user matches this id.");
-  } else {
-    res.status(204).send();
-  }
 });
 
 
